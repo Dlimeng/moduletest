@@ -1,5 +1,6 @@
 package com.lm.concurrent.matrixmultiplication;
 
+import com.lm.concurrent.matrixmultiplication.eachelement.IndividualMultiplierTask;
 import org.junit.Test;
 
 import java.util.Date;
@@ -18,7 +19,7 @@ public class MatrixGenerator {
      * @param columns
      * @return
      */
-    double[][] generate(int rows,int columns){
+    public static double[][] generate(int rows,int columns){
         double[][] ret = new double[rows][columns];
         Random random = new Random();
         for (int i = 0; i < rows; i++) {
@@ -45,16 +46,17 @@ public class MatrixGenerator {
     }
 
     @Test
-    void init(){
-        double[][] matrix1 = this.generate(2000, 2000);
-        double[][] matrix2 = this.generate(2000,2000);
+    public void init(){
+        double[][] matrix1 = MatrixGenerator.generate(2000, 2000);
+        double[][] matrix2 = MatrixGenerator.generate(2000,2000);
 
         double[][] result = new double[matrix1.length][matrix2[0].length];
 
         Date start = new Date();
         this.multiply(matrix1,matrix2,result);
         Date end = new Date();
-
+        //time:89630
         System.out.printf("time:"+(end.getTime() - start.getTime()));
     }
+
 }
