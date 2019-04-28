@@ -1,4 +1,4 @@
-package com.lm.design.singlecase;
+package com.lm.design.create.singlecase;
 
 /**
  * 懒汉
