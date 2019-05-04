@@ -1,6 +1,7 @@
 package com.lm.design.structure.bridging;
 
-/**
+/**GreenCircle
+ * 绿色的圆圈
  * @Author: limeng
  * @Date: 2019/5/1 20:37
  */
