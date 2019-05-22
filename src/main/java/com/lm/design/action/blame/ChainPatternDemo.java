@@ -1,6 +1,7 @@
-package com.lm.design.action;
+package com.lm.design.action.blame;
 
 /**
+ * 责任链
  * 创建不同类型的记录器
  * @Author: limeng
  * @Date: 2019/5/8 22:47

@@ -1,4 +1,6 @@
-package com.lm.design.action;
+package com.lm.design.action.blame;
+
+import com.lm.design.action.blame.AbstractLogger;
 
 /**
  * @Author: limeng
