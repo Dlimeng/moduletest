@@ -1,6 +1,7 @@
 package com.lm.design.observer;
 
 /**
+ * 观察者设计模式
  * 观察者实现
  * @Classname FirstObserver
  * @Description TODO
