@@ -7,7 +7,6 @@ package com.lm.concurrent;
  * @Description:
  */
 public class DeadLockDemo {
-
         private static String A = "A";
         private static String B = "B";
         public static void main(String[] args) {
