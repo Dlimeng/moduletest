@@ -14,23 +14,23 @@ package com.lm.concurrent.mutex;
  */
 public class AccountClassLockMain {
     public static void main(String[] args) throws InterruptedException {
-
         AccountClassLock2 a = new AccountClassLock2(200);
         AccountClassLock2 b = new AccountClassLock2(200);
         AccountClassLock2 c = new AccountClassLock2(200);
 
 
-        Thread t1 = new Thread(new AccountClassLockTransfer(a,b));
-        Thread t2 = new Thread(new AccountClassLockTransfer(b,c));
-
+        Thread t1 = new Thread(()->{
+            a.transfer(b,100);
+        });
         t1.start();
-        t2.start();
 
+        Thread t2 = new Thread(()->{
+            b.transfer(c,100);
+        });
+        t2.start();
 
         System.out.println(a.getBalance());
         System.out.println(b.getBalance());
         System.out.println(c.getBalance());
-
-
     }
 }
