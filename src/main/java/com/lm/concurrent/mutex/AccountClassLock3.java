@@ -56,7 +56,7 @@ public class AccountClassLock3 {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 100000; i++) {
             AccountClassLock3 a = new AccountClassLock3(200);
             AccountClassLock3 b = new AccountClassLock3(200);
             AccountClassLock3 c = new AccountClassLock3(200);
@@ -69,17 +69,16 @@ public class AccountClassLock3 {
 
 
             Thread t2 = new Thread(()->{
-                b.transfer(c,100);
+                b.transfer(a,100);
             });
             t1.start();
             t2.start();
-
 
             t2.join();
 
             System.out.println(a.getBalance());
             System.out.println(b.getBalance());
-            System.out.println(c.getBalance());
+            //System.out.println(c.getBalance());
             System.out.println("---------------");
         }
     }

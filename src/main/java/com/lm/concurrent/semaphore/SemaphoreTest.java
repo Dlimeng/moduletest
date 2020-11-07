@@ -7,6 +7,8 @@ import java.util.concurrent.Semaphore;
  * @Description TODO
  * @Date 2020/10/26 19:54
  * @Created by limeng
+ * 允许多个线程同时操作
+ * 限流器
  */
 public class SemaphoreTest {
     static int count;
