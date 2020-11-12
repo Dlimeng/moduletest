@@ -16,54 +16,86 @@ import java.util.List;
  */
 @Data
 public class AccountClassLock4 {
-    private Allocator actr;
+    private Allocator actr = Allocator.getInstance();
     private int balance;
+
+    public AccountClassLock4(int balance) {
+        this.balance = balance;
+    }
+
     //转账
     public void transfer(AccountClassLock4 target,int amt){
         //申请转出和转入账号，直到成功
-        while (!actr.apply(this,target)) { }
-
+        while (!actr.apply(this,target)) {  }
         try {
-            //锁定转出账户
             synchronized (this){
-                //锁定转入账户
                 synchronized (target){
-                    if(this.balance > amt){
+                    if (this.balance > amt){
                         this.balance -= amt;
                         target.balance += amt;
                     }
+
                 }
             }
-
-        } finally {
+        }finally {
             actr.free(this,target);
         }
+
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
+        for (int i = 0; i < 10000; i++) {
+            AccountClassLock4 a = new AccountClassLock4(200);
+            AccountClassLock4 b = new AccountClassLock4(200);
+            AccountClassLock4 c = new AccountClassLock4(200);
 
+            Thread t1 = new Thread(()->{
+                a.transfer(b,100);
+            });
+
+            Thread t2 = new Thread(()->{
+                b.transfer(c,100);
+            });
+
+            t1.start();
+            t2.start();
+            t2.join();
+
+            System.out.println(a.getBalance());
+            System.out.println(b.getBalance());
+            System.out.println(c.getBalance());
+            System.out.println("----------------");
+        }
 
     }
 
 }
 class Allocator{
+
+    private static Allocator instance = new Allocator();
+
+    public static Allocator getInstance() {
+        return instance;
+    }
+
+    private Allocator(){}
+
     private List<Object> als = new ArrayList<>();
 
-    //一次申请所有资源
-    synchronized boolean apply(Object from,Object to){
+    synchronized boolean apply(Object a,Object b){
 
-        if(als.contains(from) || als.contains(to)){
+        if(als.contains(a) || als.contains(b)){
             return false;
         }else{
-            als.add(from);
-            als.add(to);
+            als.add(a);
+            als.add(b);
         }
         return true;
     }
 
-    synchronized void free(Object from,Object to){
-        als.remove(from);
-        als.remove(to);
+    synchronized void free(Object a,Object b){
+        als.remove(a);
+        als.remove(b);
     }
 
 }

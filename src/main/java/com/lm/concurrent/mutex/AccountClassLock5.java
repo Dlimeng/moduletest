@@ -43,7 +43,7 @@ public class AccountClassLock5 {
 
 
     public static void main(String[] args) throws InterruptedException {
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 10000; i++) {
             AccountClassLock5 a = new AccountClassLock5(1, 200);
             AccountClassLock5 b = new AccountClassLock5(2, 200);
             AccountClassLock5 c = new AccountClassLock5(3, 200);
@@ -68,8 +68,6 @@ public class AccountClassLock5 {
             System.out.println(c.getBalance());
             System.out.println("----------------");
         }
-
-
 
     }
 

@@ -66,7 +66,7 @@ public class AccountClassLock6 {
 
             Thread t2 = new Thread(()->{
                 try {
-                    b.transfer(a,100);
+                    b.transfer(c,100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -80,9 +80,8 @@ public class AccountClassLock6 {
 
             System.out.println(a.getBalance());
             System.out.println(b.getBalance());
-          //  System.out.println(c.getBalance());
+           System.out.println(c.getBalance());
             System.out.println("----------------");
-
 
         }
     }
