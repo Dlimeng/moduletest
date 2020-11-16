@@ -21,7 +21,7 @@ public class DemoTest {
         n |= n >>> 8;
         n |= n >>> 16;
 
-        System.out.println(n);
+        System.out.println();
 
 
 //        try {
