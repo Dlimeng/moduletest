@@ -2,6 +2,7 @@ package com.lm.concurrent.readWriteLock;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -21,10 +22,25 @@ public class CacheTest2<K,V> {
 
     final Lock w = rwl.writeLock();
 
+
+    final Condition needPush = w.newCondition();
+
+    private int MAXSIZE = 5;
+
+
     public V get(K key){
         r.lock();
         try {
-            return map.get(key);
+            while (map.isEmpty()) {
+                try {
+                    needPush.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            V v = map.get(key);
+            map.remove(key);
+            return v;
         }finally {
             r.unlock();
         }
@@ -33,7 +49,9 @@ public class CacheTest2<K,V> {
     public V put(K key,V value){
         w.lock();
         try {
-            return map.put(key,value);
+            V v = map.put(key, value);
+            needPush.signalAll();
+            return v;
         }finally {
             w.unlock();
         }
