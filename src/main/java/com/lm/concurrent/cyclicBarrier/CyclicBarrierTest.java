@@ -22,11 +22,15 @@ public class CyclicBarrierTest {
     public static void main(String[] args) {
         int N = 5;
         CyclicBarrier cyclicBarrier = new CyclicBarrier(N);
-        ThreadPoolExecutor pool = ThreadPool.newFixedThreadPool(4, "CyclicBarrierTest", false);
+        ThreadPoolExecutor pool = ThreadPool.newFixedThreadPool(10, "CyclicBarrierTest", false);
+
+        System.out.println(cyclicBarrier.getParties());
 
         for (int i = 0; i < N; i++) {
             pool.execute(new Writer(cyclicBarrier));
         }
+
+
     }
 
     static class Writer implements Runnable{
