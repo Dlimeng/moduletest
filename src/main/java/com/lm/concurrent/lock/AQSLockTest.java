@@ -30,7 +30,8 @@ public class AQSLockTest {
             while (queue.size() == QUEUE_MAX_SIZE){
                 full.await();
             }
-            System.out.println("prd:" + "hello");
+
+            System.out.println(Thread.currentThread().getName()+ " prd:" + "hello");
             queue.add("test1-"+new Random().nextInt(100));
             empty.signalAll();
 
@@ -49,7 +50,7 @@ public class AQSLockTest {
 
             // 消费队列queue中的字符串
             String poll = queue.poll();
-            System.out.println("consumer:" + poll);
+            System.out.println(Thread.currentThread().getName()+ " consumer:" + poll);
             // 消费成功，就唤醒full中所有的生产线程去生产字符串
             full.signalAll();
 
