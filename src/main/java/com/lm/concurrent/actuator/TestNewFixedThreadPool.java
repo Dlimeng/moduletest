@@ -14,21 +14,28 @@ public class TestNewFixedThreadPool {
         //ExecutorService pool = ThreadPool.newCachedThreadPool(2,"TestNewFixedThreadPool-",false);
         ExecutorService pool = Executors.newSingleThreadExecutor();
 
-        // 创建线程
-        Thread t1 = new MyThread();
-        Thread t2 = new MyThread();
-        Thread t3 = new MyThread();
-        Thread t4 = new MyThread();
-        Thread t5 = new MyThread();
-        // 将线程放入池中进行执行
-
-        pool.execute(t1);
-        pool.execute(t2);
-        pool.execute(t3);
-        pool.execute(t4);
-        pool.execute(t5);
-        // 关闭线程池
-        pool.shutdown();
+        pool.execute(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("ccc");
+            }
+        });
+//
+//        // 创建线程
+//        Thread t1 = new MyThread();
+//        Thread t2 = new MyThread();
+//        Thread t3 = new MyThread();
+//        Thread t4 = new MyThread();
+//        Thread t5 = new MyThread();
+//        // 将线程放入池中进行执行
+//
+//        pool.execute(t1);
+//        pool.execute(t2);
+//        pool.execute(t3);
+//        pool.execute(t4);
+//        pool.execute(t5);
+//        // 关闭线程池
+//        pool.shutdown();
     }
 }
 class MyThread extends Thread {
